@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.util.Log;
 
+import com.freenow.android_demo.models.TestUser;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -85,6 +86,38 @@ public class HttpClient {
         });
     }
 
+    public TestUser fecthTestUser(String seed){
+        String url = RANDOM_USER_URL + "?seed=" + seed;
+        Request request = new Request.Builder().url(url).build();
+        TestUser user = null;
+        try {
+            Response response = mClient.newCall(request).execute();
+            if(response.isSuccessful()){
+                user = getTestUser(response.body().string());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public ArrayList<Driver> fecthTestDriver(){
+        int amount = 256;
+        String seed = "23f8827e04239990";
+        String url = RANDOM_USER_URL + "?results=" + amount + "&seed=" + seed;
+        Request request = new Request.Builder().url(url).build();
+        ArrayList<Driver> drivers = null;
+        try {
+            Response response = mClient.newCall(request).execute();
+            if(response.isSuccessful()){
+                drivers = getDrivers(response.body().string());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return drivers;
+    }
+
     private ArrayList<Driver> getDrivers(String jsonResponse) {
         JsonObject jsonObject = mJsonParser.parse(jsonResponse).getAsJsonObject();
         JsonArray results = jsonObject.getAsJsonArray("results");
@@ -101,8 +134,8 @@ public class HttpClient {
             JsonObject picture = jsonUser.getAsJsonObject("picture");
             String avatar = picture.get("large").getAsString();
             JsonObject location = jsonUser.getAsJsonObject("location");
-            JsonObject street = jsonUser.getAsJsonObject("street");
-            String streetName = location.get("name").getAsString();
+            JsonObject street = location.getAsJsonObject("street");
+            String streetName = street.get("name").getAsString();
             JsonObject registered = jsonUser.getAsJsonObject("registered");
             String date = registered.get("date").getAsString();
             Date registeredDate;
@@ -127,6 +160,17 @@ public class HttpClient {
         String salt = login.get("salt").getAsString();
         String sha256 = login.get("sha256").getAsString();
         return new User(username, salt, sha256);
+    }
+
+    private TestUser getTestUser(String jsonResponse){
+        JsonObject jsonObject = mJsonParser.parse(jsonResponse).getAsJsonObject();
+        JsonArray results = jsonObject.getAsJsonArray("results");
+        JsonElement jsonElement = results.get(0);
+        JsonObject jsonUser = jsonElement.getAsJsonObject();
+        JsonObject login = jsonUser.getAsJsonObject("login");
+        String username = login.get("username").getAsString();
+        String password = login.get("password").getAsString();
+        return new TestUser(username, "", "", password);
     }
 
     public abstract static class DriverCallback implements Runnable {

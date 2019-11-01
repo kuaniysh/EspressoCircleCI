@@ -55,7 +55,7 @@ public class AuthenticationActivity extends AppCompatActivity {
         mEditTextPassword = findViewById(R.id.edt_password);
         Button buttonLogin = findViewById(R.id.btn_login);
         buttonLogin.setOnClickListener(new OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @RequiresApi(api = Build.VERSION_CODES.O_MR1)
             @Override
             public void onClick(View view) {
                 attemptLogin();
@@ -63,7 +63,7 @@ public class AuthenticationActivity extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.O_MR1)
     private void attemptLogin() {
         final String username = mEditTextUsername.getText().toString();
         final String password = mEditTextPassword.getText().toString();

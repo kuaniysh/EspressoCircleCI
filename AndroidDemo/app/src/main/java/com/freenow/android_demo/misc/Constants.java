@@ -11,7 +11,7 @@ public final class Constants {
     public static final String LOG_TAG = "FRN";
 
     // Network
-    public static final int SOCKET_TIMEOUT = 30;
+    public static final int SOCKET_TIMEOUT = 60;
 
     // Location
     public static final float DEFAULT_ZOOM = 18.0f;
