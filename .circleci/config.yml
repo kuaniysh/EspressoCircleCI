@@ -23,10 +23,10 @@ jobs:
           command: echo "y" | sdkmanager --install 'system-images;android-27;google_apis;x86'
       - run:
           name: Create emulator
-          command: echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n xamarin_android_emulator -k 'system-images;android-27;google_apis;x86' --force; $ANDROID_HOME/emulator/emulator -list-avds
+          command: echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n ThanhLeDevice -k 'system-images;android-27;google_apis;x86' --force; $ANDROID_HOME/emulator/emulator -list-avds
       - run:
           name: Launch emulator
-          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel auto -verbose
+          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel auto -verbose
           background: true
       - run:
           name: Wait emulator
