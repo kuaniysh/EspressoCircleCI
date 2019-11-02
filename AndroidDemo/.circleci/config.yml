@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/code
+    working_directory: ~/AndroidDemo
     docker:
       - image: circleci/android:api-27-alpha
     environment:
