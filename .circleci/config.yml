@@ -20,17 +20,20 @@ jobs:
           key: jars-{{ checksum "AndroidDemo/build.gradle" }}-{{ checksum  "AndroidDemo/app/build.gradle" }}
       - run:
           name: Setup emulator
-          command: echo "y" | sdkmanager --install 'system-images;android-27;google_apis;x86'
-      - run:
-          name: Create emulator
-          command: echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n ThanhLeDevice -k 'system-images;android-27;google_apis;x86' --force; $ANDROID_HOME/emulator/emulator -list-avds
+          command: sdkmanager "system-images;android-27;default;armeabi-v7a" && echo "no" | avdmanager create avd -n ThanhLeDevice -k "system-images;android-27;default;armeabi-v7a"
       - run:
           name: Launch emulator
           command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel auto -verbose
           background: true
       - run:
           name: Wait emulator
-          command: $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+          command: |
+            # wait for it to have booted
+            circle-android wait-for-boot
+            # unlock the emulator screen
+            sleep 10
+            adb shell input keyevent 82
+            
       - run:
           name: Run EspressoTests
           command: cd AndroidDemo; ./gradlew cAT
