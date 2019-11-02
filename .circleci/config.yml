@@ -28,7 +28,7 @@ jobs:
           command: echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n ThanhLeDevice -k 'system-images;android-25;google_apis;x86_64' --force; $ANDROID_HOME/emulator/emulator -list-avds
       - run:
           name: Launch emulator
-          command: nohup $ANDROID_HOME/emulator/emulator -avd ThanhLeDevice -no-snapshot > /dev/null 2>&1 &
+          command: command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel auto -verbose
           background: true
       - run:
           name: Wait emulator
@@ -36,7 +36,7 @@ jobs:
             # wait for it to have booted
             circle-android wait-for-boot
             # unlock the emulator screen
-            sleep 1
+            #sleep 1
             adb shell input keyevent 82
             $ANDROID_HOME/platform-tools/adb devices
             
