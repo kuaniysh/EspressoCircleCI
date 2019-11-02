@@ -21,11 +21,11 @@ jobs:
       
       - run:
           name: Install Emulator
-          command: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-27;google_apis;x86_64'
+          command: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-25;google_apis;x86_64'
       
       - run:
           name: Setup emulator
-          command: echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n ThanhLeDevice -k 'system-images;android-27;google_apis;x86_64' --force; $ANDROID_HOME/emulator/emulator -list-avds
+          command: echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n ThanhLeDevice -k 'system-images;android-25;google_apis;x86_64' --force; $ANDROID_HOME/emulator/emulator -list-avds
       - run:
           name: Launch emulator
           command: nohup $ANDROID_HOME/emulator/emulator -avd ThanhLeDevice -no-snapshot > /dev/null 2>&1 &
