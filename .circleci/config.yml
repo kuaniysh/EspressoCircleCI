@@ -24,7 +24,5 @@ jobs:
           command: $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-27;google_apis;x86'
       - run:
           name: Setup emulator
-          command: 
-            $ANDROID_HOME/tools/bin/avdmanager create avd -n ThanhLeDevice -k 'system-images;android-27;google_apis;x86' --force
-            $ANDROID_HOME/emulator/emulator -list-avds
+          command: $ANDROID_HOME/tools/bin/avdmanager create avd -n ThanhLeDevice -k 'system-images;android-27;google_apis;x86' --force
       
