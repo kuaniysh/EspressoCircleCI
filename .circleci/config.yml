@@ -21,9 +21,9 @@ jobs:
       - run:
           name: Setup emulator         
           command: |
-            apt-get update
-            apt-get install wget
-            echo y | apt-get install libqt5widgets5
+            sudo apt-get update
+            sudo apt-get install wget
+            sudo echo y | apt-get install libqt5widgets5
 
             echo y | sdkmanager "emulator"
             echo y | sdkmanager "platform-tools"
