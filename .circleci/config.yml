@@ -2,19 +2,19 @@ version: 2
 jobs:
   build:
     working_directory: ~/code
-    docker:
-    - image: circleci/android:api-28-alpha
-    environment:
-      JVM_OPTS: -Xmx3200m
+#     docker:
+#     - image: circleci/android:api-28-alpha
+#     environment:
+#       JVM_OPTS: -Xmx3200m
     steps:
-    - checkout
+#     - checkout
     - run:
         name: install lib
         command: |
           sudo apt-get update
-          kvm-ok
           sudo apt-cache search qemu-kvm
           sudo apt-cache search kvm
+          sudo apt-get install qemu-kvm libvirt-clients libvirt-daemon-system          
 #          sudo apt-cache search libasound
 #          sudo apt-get install libpulse0
 #          sudo apt-get install libxcomposite1
