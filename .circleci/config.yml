@@ -22,11 +22,14 @@ jobs:
           avdmanager list
     - run:
         name: Launch emulator
-        command: emulator -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel on
+        command: |
+          sleep 10
+          emulator -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel on
         background: true
     - run:
         name: Wait emulator
         command: circle-android wait-for-boot
+        when: on_success
     - run:
         name: Check devices
         command: |
