@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Install emulator
           command: |
-            sdkmanager --install "system-images;android-22;default;armeabi-v7a"
+            sdkmanager --install "system-images;android-24;default;armeabi-v7a"
             sdkmanager --licenses
       - run:
           name: Accept license
