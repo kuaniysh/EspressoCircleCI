@@ -16,7 +16,10 @@ jobs:
         command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
     - run:
         name: Create emulator
-        command: "set -e\nsdkmanager \"system-images;android-22;default;armeabi-v7a\"\necho \"no\" | avdmanager create avd -n ThanhLeDevice -k \"system-images;android-22;default;armeabi-v7a\"\navdmanager list\n"
+        command: |
+          sdkmanager "system-images;android-22;default;armeabi-v7a"
+          echo "no" | avdmanager create avd -n ThanhLeDevice -k "system-images;android-22;default;armeabi-v7a"
+          avdmanager list
     - run:
         name: Launch emulator
         command: emulator -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel on
