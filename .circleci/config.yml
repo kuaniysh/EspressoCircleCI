@@ -5,8 +5,7 @@ jobs:
     docker:
     - image: circleci/android:api-27-alpha
     environment:
-    - CIRCLE_COMPARE_URL: https://github.com/vietthanhle89/EspressoCircleCI/compare/5184e7b5c067...4a4405189a2b
-    - JVM_OPTS: -Xmx3200m
+      JVM_OPTS: -Xmx3200m
     steps:
     - checkout
     - run:
@@ -18,9 +17,10 @@ jobs:
     - run:
         name: Create emulator
         command: |
-          set -e
-          sdkmanager "system-images;android-24;default;armeabi-v7a"
-          echo "no" | avdmanager create avd -n ThanhLeDevice -k "system-images;android-24;default;armeabi-v7a"
+          set -e;
+          sdkmanager --update;
+          sdkmanager "system-images;android-24;default;armeabi-v7a";
+          echo "no" | avdmanager create avd -n ThanhLeDevice -k "system-images;android-24;default;armeabi-v7a";
     - run:
         name: Launch emulator
         command: emulator -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel on
