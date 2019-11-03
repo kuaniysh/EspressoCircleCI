@@ -13,7 +13,7 @@ jobs:
 #         command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
     - run:
         name: install lib
-        command: sudo apt-get install libpulse0:i386
+        command: sudo apt-get install lib32-libpulse
 #     - run:
 #         name: Update SDKManager
 #         command: sdkmanager --update
