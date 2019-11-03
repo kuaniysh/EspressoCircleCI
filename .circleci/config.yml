@@ -20,7 +20,7 @@ jobs:
       #    key: jars-{{ checksum "AndroidDemo/build.gradle" }}-{{ checksum  "AndroidDemo/app/build.gradle" }}
       - run:
           name: Setup emulator         
-          script: 
+          command: |
             - apt-get update
             - apt-get install wget
             - echo y | apt-get install libqt5widgets5
