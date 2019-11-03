@@ -10,14 +10,14 @@ jobs:
     - checkout
     - run:
         name: install lib
-        command: |
+        command: |          
           sudo apt-get update
           sudo apt-get install qemu-kvm libvirt-clients libvirt-daemon-system          
-         sudo apt-cache search libasound
-         sudo apt-get install libpulse0
-         sudo apt-get install libxcomposite1
-         sudo apt-get install libxcursor1
-         sudo apt-get install libasound2
+          sudo apt-cache search libasound
+          sudo apt-get install libpulse0
+          sudo apt-get install libxcomposite1
+          sudo apt-get install libxcursor1
+          sudo apt-get install libasound2
     - run:
         name: Accept SDKManager License
         command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
