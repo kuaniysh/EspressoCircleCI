@@ -19,11 +19,17 @@ jobs:
         #    - ~/.gradle
         #  key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
+          name: List packages
+          command: sdkmanager --list
+      - run:
           name: Install emulator
           command: sdkmanager --install "system-images;android-22;default;armeabi-v7a"
       - run:
           name: Accept license
           command: sdkmanager --licenses && echo "yes"
+      - run:
+          name: List packages
+          command: sdkmanager --list
 #       - run:
 #           name: Create emulator
 #           command: avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
