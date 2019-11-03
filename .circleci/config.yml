@@ -27,6 +27,9 @@ jobs:
       - run:
           name: Accept license
           command: echo "yes" | sdkmanager --licenses
+      - run:
+          name: Accept license
+          command: echo "yes" | sdkmanager --licenses
 #       - run:
 #           name: List packages
 #           command: sdkmanager --list
