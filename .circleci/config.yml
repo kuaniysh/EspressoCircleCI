@@ -4,41 +4,43 @@ jobs:
     working_directory: ~/code
     docker:
       # Android the primary container
-      - image: circleci/android:api-27
+      - image: circleci/android:api-26-alpha
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
-      #- checkout
-      #- restore_cache:
-          #key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      #- run:
-          #name: Download Dependencies
-          #command: cd AndroidDemo; ./gradlew androidDependencies
-      #- save_cache:
-      #    paths:
-      #      - ~/.gradle
-      #    key: jars-{{ checksum "AndroidDemo/build.gradle" }}-{{ checksum  "AndroidDemo/app/build.gradle" }}
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          name: Setup emulator         
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Run UnitTest
+          command: ./gradlew testDemoDebugUnitTest
+      - run:
+          name: Setup emulator
+          command: sdkmanager "system-images;android-25;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-25;default;armeabi-v7a"
+      - run:
+          name: Launch emulator
+          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel auto -verbose
+          background: true
+      - run:
+          name: Wait emulator
           command: |
-            sudo apt-get update
-            sudo apt-get install wget
-            echo y | sudo apt-get install libqt5widgets5
-
-            echo y | sdkmanager "emulator"
-            echo y | sdkmanager "platform-tools"
-            echo y | sdkmanager "build-tools;26.0.1"
-            echo y | sdkmanager "platforms;android-26"
-            
-            wget --quiet --output-document=android-wait-for-emulator https://raw.githubusercontent.com/travis-ci/travis-cookbooks/0f497eb71291b52a703143c5cd63a217c8766dc9/community-cookbooks/android-sdk/files/default/android-wait-for-emulator
-            chmod +x android-wait-for-emulator
-
-            echo y | sdkmanager "system-images;android-25;google_apis;armeabi-v7a"
-            echo "no" | avdmanager -v create avd -n test -k "system-images;android-25;google_apis;armeabi-v7a" -b google_apis/armeabi-v7a -f
-            export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/gradle/bin:/opt/kotlinc/bin:/opt/android-sdk/emulator:/opt/android-sdk/tools:/opt/android-sdk/platform-tools:/opt/android-sdk/tools/bin
-            $ANDROID_HOME/platform-tools/adb kill-server
-            $ANDROID_HOME/platform-tools/adb start-server
-            ls $ANDROID_HOME/emulator/
-            $ANDROID_HOME/emulator/emulator -avd test -no-window -no-boot-anim -noaudio -accel on &
-            ./android-wait-for-emulator
+            # wait for it to have booted
+            circle-android wait-for-boot
+            # unlock the emulator screen
+            sleep 30
             adb shell input keyevent 82
+      - run:
+          name: Run EspressoTests
+          command: ./gradlew cAT
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_test_results:
+          path: app/build/test-results
