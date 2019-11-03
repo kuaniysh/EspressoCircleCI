@@ -11,9 +11,9 @@ jobs:
       - checkout
       #- restore_cache:
       #    key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-         name: Download Dependencies
-         command: cd AndroidDemo; ./gradlew androidDependencies
+#       - run:
+#          name: Download Dependencies
+#          command: cd AndroidDemo; ./gradlew androidDependencies
       #- save_cache:
        #   paths:
         #    - ~/.gradle
@@ -22,21 +22,21 @@ jobs:
 #           name: List packages
 #           command: sdkmanager --list
       
-      - run:
-          name: Copy SDK License
-          command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+#       - run:
+#           name: Copy SDK License
+#           command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
           
       - run:
           name: Create emulator
           command: |
-            set -e
+            (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
             sdkmanager --update
-            sdkmanager "system-images;android-22;default;armeabi-v7a"
-            echo "no" | avdmanager create avd -n ThanhLeDevice -k "system-images;android-22;default;armeabi-v7a"         
+            sdkmanager "system-images;android-24;default;armeabi-v7a"
+            echo "no" | avdmanager create avd -n ThanhLeDevice -k "system-images;android-24;default;armeabi-v7a"         
       - run:
          name: Launch emulator
          command: |
-            emulator -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel auto -verbose
+            emulator -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel auto
             circle-android wait-for-boot    
       - run:
          name: Run EspressoTests
