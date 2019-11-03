@@ -13,7 +13,9 @@ jobs:
 #         command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
     - run:
         name: install lib
-        command: sudo apt-get install lib32-libpulse
+        command: |
+          sudo amazon-linux-extras install epel
+          sudo yum install -y pulseaudio-libs
 #     - run:
 #         name: Update SDKManager
 #         command: sdkmanager --update
