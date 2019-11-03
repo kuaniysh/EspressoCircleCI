@@ -12,7 +12,6 @@ jobs:
     - run:
         name: Download Dependencies
         command: cd AndroidDemo; ./gradlew androidDependencies
-        background: true
     - run:
         name: Copy SDK License
         command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
@@ -22,7 +21,6 @@ jobs:
     - run:
         name: Launch emulator
         command: emulator -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel on
-        background: true
     - run:
         name: Wait emulator
         command: circle-android wait-for-boot
@@ -37,12 +35,6 @@ jobs:
     - run:
         name: Run EspressoTests
         command: cd AndroidDemo; ./gradlew cAT
-    - run:
-        name: Check test results
-        command: |
-          sleep 10;
-          cd AndroidDemo/app/build/reports/androidTests/connected;
-          ls;
     - store_artifacts:
         path: AndroidDemo/app/build/reports/androidTests/connected
     - store_test_results:
