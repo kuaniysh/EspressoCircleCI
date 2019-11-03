@@ -18,6 +18,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+
 
 @LargeTest
 @RunWith(AndroidJUnit4ClassRunner.class)
@@ -27,7 +29,7 @@ public class MainActivityTest extends TestBase {
     public IntentsTestRule<MainActivity> mActivityTestRule = new IntentsTestRule<>(MainActivity.class);
 
     @Test
-    public void mainActivitySearchTest() throws Exception {
+    public void mainActivitySearchTest() {
         HttpClient mHttpClient = new HttpClient();
 
         String targetDriver = "Samantha Reed";

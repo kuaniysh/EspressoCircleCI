@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-22"
-yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;22"
+
 ##############################################################################
 ##
 ##  Gradle start up script for UN*X

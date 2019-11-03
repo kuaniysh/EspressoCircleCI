@@ -6,12 +6,20 @@ import com.freenow.android_demo.models.Driver;
 
 import java.util.ArrayList;
 
+
 public class Utility {
 
     public static Driver getDriverByName(ArrayList<Driver> drivers, String name){
 
         try{
-            return drivers.stream().filter(d -> name.equals(d.getName())).findFirst().get();
+            Driver driver = null;
+            for(int i = 0; i< drivers.size(); i++){
+                driver = drivers.get(i);
+                if(driver.getName().equals(name)){
+                    break;
+                }
+            }
+            return driver;
         }
         catch(Exception ex){
             Log.i("Test", "Error when getting driver in the driver list");
