@@ -42,6 +42,8 @@ jobs:
         command: |
           cd AndroidDemo;
           ls;
+          cd app;
+          ls;
           mkdir app/build/test-results;
           cd app/build/;
           ls;
