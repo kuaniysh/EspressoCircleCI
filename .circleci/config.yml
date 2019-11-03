@@ -40,11 +40,9 @@ jobs:
         name: Create Test Result directory
         command: |
            mkdir /tmp/test-results;
-           cd /tmp/test-results;
+           cd /tmp;
            ls;
     - store_test_results:
         path: /tmp/test-results
     - store_artifacts:
         path: /tmp/test-results
-        destination: test_results
-
