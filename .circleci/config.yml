@@ -29,3 +29,15 @@ jobs:
             echo y | sdkmanager "platform-tools"
             echo y | sdkmanager "build-tools;26.0.1"
             echo y | sdkmanager "platforms;android-26"
+            
+            wget --quiet --output-document=android-wait-for-emulator https://raw.githubusercontent.com/travis-ci/travis-cookbooks/0f497eb71291b52a703143c5cd63a217c8766dc9/community-cookbooks/android-sdk/files/default/android-wait-for-emulator
+            chmod +x android-wait-for-emulator
+
+            echo y | sdkmanager "system-images;android-25;google_apis;armeabi-v7a"
+            echo "no" | avdmanager -v create avd -n test -k "system-images;android-25;google_apis;armeabi-v7a" -b google_apis/armeabi-v7a -f
+            export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/gradle/bin:/opt/kotlinc/bin:/opt/android-sdk/emulator:/opt/android-sdk/tools:/opt/android-sdk/platform-tools:/opt/android-sdk/tools/bin
+            $ANDROID_HOME/platform-tools/adb kill-server
+            $ANDROID_HOME/platform-tools/adb start-server
+            $ANDROID_HOME/emulator/emulator64-arm -avd test -no-window -no-boot-anim -noaudio -accel on &
+            ./android-wait-for-emulator
+            adb shell input keyevent 82
