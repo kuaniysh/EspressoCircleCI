@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/code
     docker:
       # Android the primary container
-      - image: circleci/android:api-26-alpha
+      - image: circleci/android:api-27-alpha
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
@@ -13,14 +13,11 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Download Dependencies
-          command: ./gradlew androidDependencies
+          command: cd AndroidDemo; ./gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Run UnitTest
-          command: ./gradlew testDemoDebugUnitTest
       - run:
           name: Setup emulator
           command: sdkmanager "system-images;android-25;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-25;default;armeabi-v7a"
@@ -34,11 +31,11 @@ jobs:
             # wait for it to have booted
             circle-android wait-for-boot
             # unlock the emulator screen
-            sleep 30
+            #sleep 30
             adb shell input keyevent 82
       - run:
           name: Run EspressoTests
-          command: ./gradlew cAT
+          command: cd AndroidDemo; ./gradlew cAT
       - store_artifacts:
           path: app/build/reports
           destination: reports
