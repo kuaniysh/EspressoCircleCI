@@ -17,8 +17,8 @@ jobs:
     - run:
         name: Create emulator
         command: |
-          sdkmanager "system-images;android-24;google_apis;armeabi-v7a"
-          echo "no" | avdmanager create avd -n ThanhLeDevice -k "system-images;android-24;google_apis;armeabi-v7a"
+          sdkmanager "system-images;android-24;default;armeabi-v7a"
+          echo "no" | avdmanager create avd -n ThanhLeDevice -k "system-images;android-24;default;armeabi-v7a"
           avdmanager list avd
     - run:
         name: Launch emulator
