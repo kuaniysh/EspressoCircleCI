@@ -40,6 +40,7 @@ jobs:
     - run:
         name: Check test results
         command: |
+          sleep 10;
           cd AndroidDemo/app/build/reports/androidTests/connected;
           ls;
     - store_artifacts:
