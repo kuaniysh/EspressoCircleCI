@@ -36,7 +36,7 @@ jobs:
       - run:
          name: Launch emulator
          command: |
-            emulator -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel auto
+            emulator -avd ThanhLeDevice
             circle-android wait-for-boot    
       - run:
          name: Run EspressoTests
