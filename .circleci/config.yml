@@ -26,6 +26,9 @@ jobs:
         name: Check devices
         command: adb devices
     - run:
+        name: Download Dependencies
+        command: cd AndroidDemo; ./gradlew androidDependencies
+    - run:
           name: Run EspressoTests
           command: cd AndroidDemo; ./gradlew cAT
     - store_artifacts:
