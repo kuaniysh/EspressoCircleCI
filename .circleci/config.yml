@@ -42,8 +42,9 @@ jobs:
            mkdir /tmp/test-results;
            cd /tmp/test-results;
            ls;
+    - store_test_results:
+        path: /tmp/test-results
     - store_artifacts:
         path: /tmp/test-results
         destination: test_results
-    - store_test_results:
-        path: /tmp/test-results
+
