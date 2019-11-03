@@ -38,6 +38,7 @@ jobs:
             export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/gradle/bin:/opt/kotlinc/bin:/opt/android-sdk/emulator:/opt/android-sdk/tools:/opt/android-sdk/platform-tools:/opt/android-sdk/tools/bin
             $ANDROID_HOME/platform-tools/adb kill-server
             $ANDROID_HOME/platform-tools/adb start-server
+            ls $ANDROID_HOME/emulator/
             $ANDROID_HOME/emulator/emulator64-arm -avd test -no-window -no-boot-anim -noaudio -accel on &
             ./android-wait-for-emulator
             adb shell input keyevent 82
