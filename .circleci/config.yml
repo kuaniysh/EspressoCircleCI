@@ -22,14 +22,14 @@ jobs:
 #           name: List packages
 #           command: sdkmanager --list
       - run:
+          name: Update sdkmanager
+          command: sdkmanager --update
+      - run:
           name: Install emulator
-          command: echo "no" | sdkmanager --install "system-images;android-24;default;armeabi-v7a"       
+          command: sdkmanager --install "system-images;android-24;default;armeabi-v7a"       
       - run:
           name: Accept license
-          command: echo "yes" | sdkmanager --licenses
-      - run:
-          name: Accept license
-          command: echo "yes"
+          command: sdkmanager --licenses
 #       - run:
 #           name: List packages
 #           command: sdkmanager --list
