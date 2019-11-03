@@ -12,9 +12,11 @@ jobs:
         name: install lib
         command: |
           sudo apt-get update
+          sudo apt-cache search libasound
           sudo apt-get install libpulse0
           sudo apt-get install libxcomposite1
           sudo apt-get install libxcursor1
+          sudo apt-get install libasound2
     - run:
         name: Accept SDKManager License
         command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
