@@ -7,52 +7,41 @@ jobs:
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
-#     - checkout
+    - checkout
     - run:
-        name: install lib
-        command: |          
-          sudo apt-get update
-          sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils ia32-libs-multiarch
-#          sudo apt-get install qemu-kvm libvirt-clients libvirt-daemon-system          
-#          sudo apt-cache search libasound
-#          sudo apt-get install libpulse0
-#          sudo apt-get install libxcomposite1
-#          sudo apt-get install libxcursor1
-#          sudo apt-get install libasound2
-#     - run:
-#         name: Accept SDKManager License
-#         command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-#     - run:
-#         name: Update SDKManager
-#         command: sdkmanager --update
-#     - run:
-#         name: Create emulator
-#         command: |
-#           sdkmanager "system-images;android-28;default;x86_64"
-#           echo "no" | avdmanager create avd -n ThanhLeDevice -k "system-images;android-28;default;x86_64"
-#           avdmanager list avd
-#     - run:
-#         name: Launch emulator
-#         command: emulator -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel on
-#         background: true
-#     - run:
-#         name: Wait emulator
-#         command: circle-android wait-for-boot
-#     - run:
-#         name: Check devices
-#         command: |
-#           adb devices
-#           adb shell settings put global development_settings_enabled 1
-#           adb shell settings put global window_animation_scale 0 &
-#           adb shell settings put global transition_animation_scale 0 &
-#           adb shell settings put global animator_duration_scale 0 &
-#     - run:
-#         name: Download Dependencies
-#         command: cd AndroidDemo; ./gradlew androidDependencies
-#     - run:
-#         name: Run EspressoTests
-#         command: cd AndroidDemo; ./gradlew cAT
-#     - store_artifacts:
-#         path: AndroidDemo/app/build/reports/androidTests/connected
-#     - store_test_results:
-#         path: AndroidDemo/app/build/reports/androidTests/connected
+        name: Accept SDKManager License
+        command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+    - run:
+        name: Update SDKManager
+        command: sdkmanager --update
+    - run:
+        name: Create emulator
+        command: |
+          sdkmanager "system-images;android-25;google_apis;armeabi-v7a"
+          echo "no" | avdmanager create avd -n ThanhLeDevice -k "system-images;android-25;google_apis;armeabi-v7a"
+          avdmanager list avd
+    - run:
+        name: Launch emulator
+        command: emulator -avd ThanhLeDevice -noaudio -no-boot-anim -no-window -accel on
+        background: true
+    - run:
+        name: Wait emulator
+        command: circle-android wait-for-boot
+    - run:
+        name: Check devices
+        command: |
+          adb devices
+          adb shell settings put global development_settings_enabled 1
+          adb shell settings put global window_animation_scale 0 &
+          adb shell settings put global transition_animation_scale 0 &
+          adb shell settings put global animator_duration_scale 0 &
+    - run:
+        name: Download Dependencies
+        command: cd AndroidDemo; ./gradlew androidDependencies
+    - run:
+        name: Run EspressoTests
+        command: cd AndroidDemo; ./gradlew cAT
+    - store_artifacts:
+        path: AndroidDemo/app/build/reports/androidTests/connected
+    - store_test_results:
+        path: AndroidDemo/app/build/reports/androidTests/connected
