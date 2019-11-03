@@ -20,7 +20,7 @@ jobs:
         #  key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Setup emulator
-          command: 
+          command: |
             - yes | sdkmanager --licenses && yes
             - sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a" && echo "yes"
       - run:
