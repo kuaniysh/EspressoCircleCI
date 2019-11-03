@@ -9,9 +9,6 @@ jobs:
     steps:
     - checkout
     - run:
-        name: Download Dependencies
-        command: cd AndroidDemo; ./gradlew androidDependencies
-    - run:
         name: Accept SDKManager License
         command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
     - run:
@@ -38,6 +35,9 @@ jobs:
           adb shell settings put global window_animation_scale 0 &
           adb shell settings put global transition_animation_scale 0 &
           adb shell settings put global animator_duration_scale 0 &
+    - run:
+        name: Download Dependencies
+        command: cd AndroidDemo; ./gradlew androidDependencies
     - run:
         name: Run EspressoTests
         command: cd AndroidDemo; ./gradlew cAT
