@@ -28,7 +28,7 @@ jobs:
             sdkmanager --licenses
       - run:
           name: Accept license
-          command: sdkmanager --licenses
+          command: yes | sdkmanager --licenses
       - run:
           name: List packages
           command: sdkmanager --list
