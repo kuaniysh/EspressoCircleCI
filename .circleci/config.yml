@@ -12,7 +12,6 @@ jobs:
         name: install lib
         command: |
           sudo apt-get update
-#          sudo apt-cache search libpulse
           sudo apt-get install libpulse0
           sudo apt-get install libxcomposite1
           sudo apt-get install libxcursor1
