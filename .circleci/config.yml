@@ -12,9 +12,7 @@ jobs:
         name: install lib
         command: |          
           sudo apt-get update
-          sudo apt-get install cpu-checker
-          egrep -c '(vmx|svm)' /proc/cpuinfo
-          sudo kvm-ok
+          sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils ia32-libs-multiarch
 #          sudo apt-get install qemu-kvm libvirt-clients libvirt-daemon-system          
 #          sudo apt-cache search libasound
 #          sudo apt-get install libpulse0
