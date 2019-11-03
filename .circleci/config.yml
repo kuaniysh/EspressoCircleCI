@@ -12,10 +12,11 @@ jobs:
         name: Download Dependencies
         command: cd AndroidDemo; ./gradlew androidDependencies
     - run:
-        name: Prepare SDKManager
-        command: |
-          (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-          sdkmanager --update
+        name: Accept SDKManager License
+        command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+    - run:
+        name: Update SDKManager
+        command: sdkmanager --update
     - run:
         name: Create emulator
         command: |
