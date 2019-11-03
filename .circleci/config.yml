@@ -23,7 +23,7 @@ jobs:
           command: sdkmanager --install "system-images;android-22;default;armeabi-v7a"
       - run:
           name: Accept license
-          command: yes | sdkmanager --licenses
+          command: sdkmanager --licenses && echo "yes"
 #       - run:
 #           name: Create emulator
 #           command: avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
